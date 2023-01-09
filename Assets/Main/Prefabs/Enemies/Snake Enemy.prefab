@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6303223230475967863}
   - component: {fileID: 163538874741431115}
   - component: {fileID: 7813051643805096140}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Snake Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -48,9 +48,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _attackRange: 2
   _movementSpeed: 3
-  _chaseDuration: 2
-  _attackSpeed: 1
   _aggroRange: 4
+  _attackSpeed: 1
+  _targetUpdateTimer: 0.1
 --- !u!135 &7813051643805096140
 SphereCollider:
   m_ObjectHideFlags: 0
