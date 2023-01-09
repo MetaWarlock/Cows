@@ -205,6 +205,7 @@ GameObject:
   - component: {fileID: 7482953969729642113}
   - component: {fileID: 4005664386885134349}
   - component: {fileID: 808578264421266557}
+  - component: {fileID: 1199920280}
   m_Layer: 8
   m_Name: PlayerArmature
   m_TagString: Player
@@ -454,6 +455,21 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1199920280
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 808578264421266545}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11b19064c516ff4bb86506c80cfe73e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _damage: 10
+  _range: 10.15
+  attackAnimation: {fileID: 7400000, guid: ea3bf4d544543e6479a32b4fa4cbef6a, type: 2}
 --- !u!1 &992620244561495727
 GameObject:
   m_ObjectHideFlags: 0
@@ -3503,7 +3519,7 @@ Transform:
   - {fileID: 2070925442732380956}
   - {fileID: 8944336656665796900}
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6602192718986286702
 GameObject:
