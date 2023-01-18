@@ -122,6 +122,9 @@ namespace StarterAssets
             }
         }
 
+        //My kostili
+        private SwordAttack _attack;
+
 
         private void Awake()
         {
@@ -150,15 +153,22 @@ namespace StarterAssets
             // reset our timeouts on start
             _jumpTimeoutDelta = JumpTimeout;
             _fallTimeoutDelta = FallTimeout;
+
+            //my kostili
+            _attack = GetComponent<SwordAttack>();
         }
 
         private void Update()
         {
             _hasAnimator = TryGetComponent(out _animator);
 
-            JumpAndGravity();
-            GroundedCheck();
-            Move();
+            if(_attack.isAttacking == false)
+            {
+                JumpAndGravity();
+                GroundedCheck();
+                Move();
+            }
+
         }
 
         private void LateUpdate()

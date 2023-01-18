@@ -1,9 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class SwordAttack : MonoBehaviour
 {
+
+    float speed = 0;
     // The damage that the sword will deal when it hits an enemy
     [SerializeField]
     private int _damage = 10;
@@ -26,7 +30,7 @@ public class SwordAttack : MonoBehaviour
     private Collider playerCollider;
 
     // A flag to track whether the player is currently attacking
-     private bool isAttacking = false;
+    public bool isAttacking = false;
 
     private void Start()
     {
@@ -46,24 +50,33 @@ public class SwordAttack : MonoBehaviour
         if (Input.GetButtonDown("Fire1"))
         {
             // Start the attack
-            StartCoroutine(Attack());
+            Attack();
+            transform.Rotate(Vector3.up, speed * Time.deltaTime);
+            if (speed < 4000) speed += 1.0f;
         }
     }
 
-    private IEnumerator Attack()
+    private void Attack()
     {
         isAttacking = true;
 
-        // Play the attack animation
+                // Play the attack animation
         animator.SetTrigger("Attack");
 
-        // Wait for the attack animation to finish
-        yield return new WaitForSeconds(attackAnimDuration);
 
-        isAttacking = false;
+
+        // Wait for the attack animation to finish
+        //yield return new WaitForSeconds(attackAnimDuration);
+
+        //isAttacking = false;
 
         // Check for enemies in range
-        DetectEnemies();
+        //DetectEnemies();
+    }
+
+    private void StopAttack()
+    {
+        isAttacking = false;
     }
 
     private void DetectEnemies()
