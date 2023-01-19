@@ -1,8 +1,10 @@
+using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.Rendering;
+using UnityEngine.InputSystem;
 
 public class SwordAttack : MonoBehaviour
 {
@@ -32,6 +34,8 @@ public class SwordAttack : MonoBehaviour
     // A flag to track whether the player is currently attacking
     public bool isAttacking = false;
 
+    private bool _attackButton;
+
     private void Start()
     {
         // Get a reference to the player's animator component
@@ -42,26 +46,42 @@ public class SwordAttack : MonoBehaviour
 
         // Get the duration of the attack animation
         attackAnimDuration = attackAnimation.length;
+
     }
 
     private void Update()
     {
         // Check if the player pressed the attack button
-        if (Input.GetButtonDown("Fire1"))
+        if (_attackButton)
         {
             // Start the attack
             Attack();
-            transform.Rotate(Vector3.up, speed * Time.deltaTime);
-            if (speed < 4000) speed += 1.0f;
         }
     }
 
-    private void Attack()
-    {
-        isAttacking = true;
 
-                // Play the attack animation
+    public void OnAttack(InputValue value)
+    {
+        AttackInput(value.isPressed);
+    }
+
+    public void AttackInput(bool newAttackState)
+    {
+        _attackButton = newAttackState;
+    }
+
+
+
+    public void Attack()
+    {
+        if (!isAttacking) { 
+        isAttacking = true;
         animator.SetTrigger("Attack");
+
+        }
+
+        // Play the attack animation
+
 
 
 
@@ -77,6 +97,7 @@ public class SwordAttack : MonoBehaviour
     private void StopAttack()
     {
         isAttacking = false;
+        _attackButton = false;
     }
 
     private void DetectEnemies()
