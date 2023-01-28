@@ -13,10 +13,12 @@ public class EnemyController : MonoBehaviour
     // The time until the enemy's next attack
     private float _attackTimer;
     private GameObject _target;
+    private Animator _animator;
 
 
     void Start()
     {
+        _animator= GetComponentInChildren<Animator>();
         // Set the initial target to the closest cow
         _target = GetClosestTarget();
         // Set the initial attack timer to the attack speed
@@ -75,24 +77,8 @@ public class EnemyController : MonoBehaviour
 
     void Attack()
     {
-        // If the target is a cow
-        if (_target.tag == "Cow")
-        {
-            // Write something in the console
-            Debug.Log("Attacking cow!");
-            // Destroy the cow
-            Destroy(_target);
-            // Remove the cow from the list
-            Targets.RemoveTarget(_target);
-            // Set the target to the next closest cow
-            _target = GetClosestTarget();
-        }
-        // If the target is the player
-        else if (_target.tag == "Player")
-        {
-            // Write something in the console
-            Debug.Log("Attacking player!");
-        }
+        Debug.Log("Attacking!");
+        _animator.SetTrigger("Attack_t");
     }
 
     GameObject GetClosestTarget()
@@ -127,6 +113,27 @@ public class EnemyController : MonoBehaviour
         }
         // Return the closest target
         return closestTarget;
+    }
+    public void BiteAction()
+    {
+        // If the target is a cow
+        if (_target.tag == "Cow")
+        {
+            Debug.Log("Bite cow!");
+            Destroy(_target);
+            // Remove the cow from the list
+            Targets.RemoveTarget(_target);
+            // Set the target to the next closest cow
+            _target = GetClosestTarget();
+        }
+        // If the target is the player
+        else if (_target.tag == "Player")
+        {
+            // Write something in the console
+            Debug.Log("Bite player!");
+            // Set the target to the next closest cow
+            _target = GetClosestTarget();
+        }
     }
 }
 
