@@ -157,7 +157,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "StickDeadzone",
-                    "groups": "Gamepad",
+                    "groups": "Gamepad;Xbox Controller;PS4 Controller",
                     "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -223,7 +223,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Gamepad",
+                    "groups": "Gamepad;Xbox Controller;PS4 Controller",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false

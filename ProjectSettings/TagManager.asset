@@ -4,9 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - CinemachineTarget
-  - Cow
-  - AttackRange
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -14,11 +12,11 @@ TagManager:
   - 
   - Water
   - UI
-  - Enemies
-  - 
-  - 
-  - 
-  - 
+  - Enemy
+  - Player
+  - Tree
+  - Ground
+  - CursorTest
   - 
   - 
   - 

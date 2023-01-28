@@ -1417,7 +1417,7 @@ GameObject:
   - component: {fileID: 4975222834959255370}
   m_Layer: 6
   m_Name: Wolf Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1436,7 +1436,7 @@ Transform:
   m_Children:
   - {fileID: 4214395749526055994}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4975222834959255370
 MonoBehaviour:

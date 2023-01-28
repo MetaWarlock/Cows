@@ -351,26 +351,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5688029183117960964, guid: 1283fd4422bb34d49897069c3ae39a46,
-        type: 3}
-      propertyPath: buttonStateOutputEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5688029183117960964, guid: 1283fd4422bb34d49897069c3ae39a46,
-        type: 3}
-      propertyPath: buttonStateOutputEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 1653433883}
-    - target: {fileID: 5688029183117960964, guid: 1283fd4422bb34d49897069c3ae39a46,
-        type: 3}
-      propertyPath: buttonStateOutputEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Attack
-      objectReference: {fileID: 0}
-    - target: {fileID: 5688029183117960964, guid: 1283fd4422bb34d49897069c3ae39a46,
-        type: 3}
-      propertyPath: buttonStateOutputEvent.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: SwordAttack, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 6487069958601647503, guid: 1283fd4422bb34d49897069c3ae39a46,
         type: 3}
       propertyPath: m_Name
@@ -1097,18 +1077,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8fee547e8cf2d5479828c631b844740, type: 3}
---- !u!114 &1653433883 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1199920280, guid: 1283fd4422bb34d49897069c3ae39a46,
-    type: 3}
-  m_PrefabInstance: {fileID: 255916214}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f11b19064c516ff4bb86506c80cfe73e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1661496682
 PrefabInstance:
   m_ObjectHideFlags: 0
