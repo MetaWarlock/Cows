@@ -14,15 +14,45 @@ public class Character : MonoBehaviour
     [SerializeField] private float _moveSpeed;
     [SerializeField] private float _gravity = -9.8f;
 
+    //Enemy
+    public bool IsPlayer = true;
+    private UnityEngine.AI.NavMeshAgent _navMeshAgent;
+    private Transform _targetPlayer;
+
+    //State Machine
+    public enum CharacterState
+    {
+        Normal,Attacking
+    }
+
+    public CharacterState CurrentState;
+
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
-        _playerInput = GetComponent<MyPlayerInput>();
+
         _animator = GetComponent<Animator>();
+
+        if(!IsPlayer )
+        {
+            _navMeshAgent = GetComponent<UnityEngine.AI.NavMeshAgent>();
+            _targetPlayer = GameObject.FindWithTag("Player").transform;
+            _navMeshAgent.speed = _moveSpeed;
+        }else
+        {
+            _playerInput = GetComponent<MyPlayerInput>();
+        }
     }
 
     private void CalculatePlayerMovement()
     {
+
+        if(_playerInput.MouseButtonDown && _characterController.isGrounded)
+        {
+            SwitchStateTo(CharacterState.Attacking);
+            return;
+        }
+
         _movementVelocity.Set(_playerInput.HorizontalInput,0f,_playerInput.VerticalInput);
         _movementVelocity.Normalize();
         _movementVelocity = Quaternion.Euler(0f,-45f,0f) * _movementVelocity;
@@ -35,21 +65,88 @@ public class Character : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(_movementVelocity);
     }
 
-    private void FixedUpdate()
+    private void CalculateEnemyMovement()
     {
-        CalculatePlayerMovement();
-
-        if(_characterController.isGrounded == false)
+        if(Vector3.Distance(_targetPlayer.position, transform.position) >= _navMeshAgent.stoppingDistance)
         {
-            _verticalVelocity = _gravity;
+            _navMeshAgent.SetDestination(_targetPlayer.position);
+            _animator.SetFloat("Speed",0.5f);
         }
         else
         {
-            _verticalVelocity = _gravity * 0.3f;
+            _navMeshAgent.SetDestination(transform.position);
+            _animator.SetFloat("Speed", 0f);
         }
 
-        _movementVelocity += _verticalVelocity * Vector3.up * Time.deltaTime;
+        //transform.rotation = Quaternion.LookRotation(_targetPlayer.position);
 
-        _characterController.Move(_movementVelocity);
+    }
+
+    private void FixedUpdate()
+    {
+        switch(CurrentState)
+        {
+            case CharacterState.Normal:
+                {
+                    if (IsPlayer)
+                        CalculatePlayerMovement();
+                    else
+                        CalculateEnemyMovement();
+                    break;
+                }
+            case CharacterState.Attacking:
+                {
+
+                    break;
+                }
+        }
+
+
+
+
+        if(IsPlayer)
+        {
+            if (_characterController.isGrounded == false)
+            {
+                _verticalVelocity = _gravity;
+            }
+            else
+            {
+                _verticalVelocity = _gravity * 0.3f;
+            }
+
+            _movementVelocity += _verticalVelocity * Vector3.up * Time.deltaTime;
+
+            _characterController.Move(_movementVelocity);
+        }
+
+    }
+
+    private void SwitchStateTo(CharacterState newState)
+    {
+        //Clear Cache
+        _playerInput.MouseButtonDown = false;
+
+        //Exiting state
+        switch(CurrentState)
+        {
+            case CharacterState.Normal:
+                break;
+            case CharacterState.Attacking:
+                break;
+        }
+
+        //Entering state
+        switch (newState)
+        {
+            case CharacterState.Normal:
+                break;
+            case CharacterState.Attacking:
+                break;
+        }
+
+        CurrentState = newState;
+
+        Debug.Log("Switched to " + CurrentState);
     }
 }
