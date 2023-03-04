@@ -19,6 +19,12 @@ public class Character : MonoBehaviour
     private UnityEngine.AI.NavMeshAgent _navMeshAgent;
     private Transform _targetPlayer;
 
+    //Health
+    private Health _health;
+
+    //Damage caster
+    private DamageCaster _damageCaster;
+
     //Player slides
     private float _attackStartTime;
     [SerializeField] private float _attackSlideDuration;
@@ -36,8 +42,9 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         _characterController = GetComponent<CharacterController>();
-
+        _health = GetComponent<Health>();
         _animator = GetComponent<Animator>();
+        _damageCaster = GetComponentInChildren<DamageCaster>();
 
         if(!IsPlayer )
         {
@@ -82,10 +89,9 @@ public class Character : MonoBehaviour
         {
             _navMeshAgent.SetDestination(transform.position);
             _animator.SetFloat("Speed", 0f);
+
+            SwitchStateTo(CharacterState.Attacking);
         }
-
-        //transform.rotation = Quaternion.LookRotation(_targetPlayer.position);
-
     }
 
     private void FixedUpdate()
@@ -140,7 +146,8 @@ public class Character : MonoBehaviour
     private void SwitchStateTo(CharacterState newState)
     {
         //Clear Cache
-        _playerInput.MouseButtonDown = false;
+        if(IsPlayer)
+            _playerInput.MouseButtonDown = false;
 
         //Exiting state
         switch(CurrentState)
@@ -157,6 +164,13 @@ public class Character : MonoBehaviour
             case CharacterState.Normal:
                 break;
             case CharacterState.Attacking:
+
+                if (!IsPlayer)
+                {
+                    Quaternion newRotation = Quaternion.LookRotation(_targetPlayer.position - transform.position);
+                    transform.rotation = newRotation;
+                }
+
                 _animator.SetTrigger("Attack");
 
                 if (IsPlayer) _attackStartTime = Time.time;
@@ -172,5 +186,23 @@ public class Character : MonoBehaviour
     public void AttackAnimationEnds()
     {
         SwitchStateTo(CharacterState.Normal);
+    }
+
+    public void ApplyDamage(int damage, Vector3 attackerPos = new Vector3())
+    {
+        if (_health!=null)
+        {
+            _health.ApplyDamage(damage);
+        }
+    }
+
+    public void EnableDamageCaster()
+    {
+        _damageCaster.EnableDamageCaster();
+    }
+
+    public void DisableDamageCaster()
+    {
+        _damageCaster.DisableDamageCaster();
     }
 }

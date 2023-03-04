@@ -105,7 +105,7 @@ public partial class @MyControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""2a5ddd01-63a9-4c0b-a15e-44d9473dfbef"",
-                    ""path"": ""<Mouse>/leftButton"",
+                    ""path"": ""<Keyboard>/space"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""KeyboardMouse"",
