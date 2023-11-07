@@ -34,10 +34,12 @@ public class Character : MonoBehaviour
     //State Machine
     public enum CharacterState
     {
-        Normal,Attacking
+        Normal,Attacking,Dead,BeingHit
     }
 
     public CharacterState CurrentState;
+
+    //public bool Grounded;
 
     private void Awake()
     {
@@ -62,6 +64,7 @@ public class Character : MonoBehaviour
 
         if(_playerInput.MouseButtonDown && _characterController.isGrounded)
         {
+            Debug.Log("ATAKA");
             SwitchStateTo(CharacterState.Attacking);
             return;
         }
@@ -96,7 +99,10 @@ public class Character : MonoBehaviour
 
     private void FixedUpdate()
     {
-        switch(CurrentState)
+
+       // Grounded = _characterController.isGrounded;
+
+        switch (CurrentState)
         {
             case CharacterState.Normal:
                 {
@@ -155,6 +161,16 @@ public class Character : MonoBehaviour
             case CharacterState.Normal:
                 break;
             case CharacterState.Attacking:
+
+                if(_damageCaster != null)
+                {
+                    DisableDamageCaster();
+                }
+
+                break;
+            case CharacterState.Dead:
+                break;
+            case CharacterState.BeingHit:
                 break;
         }
 
@@ -180,7 +196,7 @@ public class Character : MonoBehaviour
 
         CurrentState = newState;
 
-        Debug.Log("Switched to " + CurrentState);
+       // Debug.Log(gameObject.name + " switched to " + CurrentState);
     }
 
     public void AttackAnimationEnds()
@@ -193,6 +209,11 @@ public class Character : MonoBehaviour
         if (_health!=null)
         {
             _health.ApplyDamage(damage);
+        }
+
+        if(!IsPlayer)
+        {
+            GetComponent<EnemyVFXManager>().PlayBeingHitVFX(attackerPos);
         }
     }
 

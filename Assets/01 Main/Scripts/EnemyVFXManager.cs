@@ -7,6 +7,7 @@ public class EnemyVFXManager : MonoBehaviour
 {
     public VisualEffect FootStep;
     public VisualEffect AttackVFX;
+    public ParticleSystem BeingHitVFX;
 
 
     public void Bite()
@@ -22,8 +23,15 @@ public class EnemyVFXManager : MonoBehaviour
 
     public void BurstFootStep()
     {
+        FootStep.SendEvent("OnPlay");
+    }
 
-            FootStep.SendEvent("OnPlay");
-
+    public void PlayBeingHitVFX(Vector3 attackerPos)
+    {
+        Vector3 forceForward = transform.position - attackerPos;
+        forceForward.Normalize();
+        forceForward.y = 0f;
+        BeingHitVFX.transform.rotation = Quaternion.LookRotation(forceForward);
+        BeingHitVFX.Play();
     }
 }
